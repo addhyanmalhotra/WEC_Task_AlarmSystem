@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,9 +45,11 @@ public class SignUpActivity extends AppCompatActivity {
         uName = findViewById(R.id.fullname);
         eConTF = findViewById(R.id.ePhoneTF);
         uPhone=findViewById(R.id.phoneNo);
+
         ePhone=findViewById(R.id.EmergencyphoneNo);
         btnSignUp = findViewById(R.id.signUpBtn2);
         signIn = findViewById(R.id.TVSignIn);
+
         eConTF.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

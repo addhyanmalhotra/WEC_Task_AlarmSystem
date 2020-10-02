@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +41,7 @@ public class SosActivity extends AppCompatActivity {
     DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
     String emergencyContactNo;
     TextView eCTV;
+    FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,7 @@ public class SosActivity extends AppCompatActivity {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         //Get Emergency Contact from DataBase
         eCTV= findViewById(R.id.emNo);
+        fab = findViewById(R.id.settingsfab);
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -68,6 +71,13 @@ public class SosActivity extends AppCompatActivity {
         super.onStart();
         ImageButton sosBtn = findViewById(R.id.sosButton);
         //Button Click sends SOS signal + GPS Co-ordinates
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent I = new Intent(SosActivity.this, SettingsActivity.class);
+                startActivity(I);
+            }
+        });
         sosBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
