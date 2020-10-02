@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".SignUpActivity"
     android:orientation="vertical"
-    android:background="@drawable/bg_login"
-    android:padding="20dp">
+    android:background="@drawable/bg2"
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/logo_image"
@@ -17,6 +17,7 @@
         android:scaleType="centerCrop"
         android:src="@drawable/logo" />
     <TextView
+        android:layout_marginTop="10dp"
         android:id="@+id/logo_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
