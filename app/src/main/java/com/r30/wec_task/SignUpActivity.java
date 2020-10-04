@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,6 +39,8 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_sign_up);
         firebaseAuth = FirebaseAuth.getInstance();
         emailId = findViewById(R.id.emailId);
@@ -100,7 +103,7 @@ public class SignUpActivity extends AppCompatActivity {
                                             }
                                         });
                                 users.child(user.getUid()).child("fullName").setValue(fullname);
-                                users.child(user.getUid()).child("eContact").setValue(emegency_phone);
+                                users.child(user.getUid()).child("eContacts").child("0").setValue(emegency_phone);
                                 users.child(user.getUid()).child("phNo").setValue(user_phone);
                                 startActivity(new Intent(SignUpActivity.this, SosActivity.class));
                                 finish();
@@ -145,7 +148,7 @@ public class SignUpActivity extends AppCompatActivity {
                         contactNumber = cursor.getString(phoneIndex);
                         contactName = cursor.getString(nameIndex);
                         // Set the value to the textviews
-                        ePhone.setText("Contact Number : ".concat(contactNumber));
+                        ePhone.setText(contactNumber);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

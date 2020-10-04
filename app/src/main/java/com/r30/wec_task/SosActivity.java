@@ -2,6 +2,7 @@ package com.r30.wec_task;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
@@ -9,6 +10,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -42,23 +44,34 @@ public class SosActivity extends AppCompatActivity {
     String emergencyContactNo;
     TextView eCTV;
     FloatingActionButton fab;
+    SharedPreferences sharedpreferences;
+    SharedPreferences.Editor myEditor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_sos2);
         ActivityCompat.requestPermissions( this,
                 new String[] {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.SEND_SMS}, REQUEST_LOCATION);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        sharedpreferences = getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+        myEditor = sharedpreferences.edit();
         //Get Emergency Contact from DataBase
         eCTV= findViewById(R.id.emNo);
         fab = findViewById(R.id.settingsfab);
-        userRef.addValueEventListener(new ValueEventListener() {
+        userRef.child("eContact").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                emergencyContactNo = snapshot.child("eContact").getValue(String.class).toString();
+                emergencyContactNo = snapshot.getValue(String.class).toString();
                 Toast.makeText(SosActivity.this,"Emergency contact is"+emergencyContactNo,Toast.LENGTH_SHORT);
+                myEditor.putString("eContact",emergencyContactNo);
                 eCTV.setText(emergencyContactNo);
-
+               /* for(DataSnapshot contacts : snapshot.getChildren()){
+                    if(!contacts.getValue(String.class).isEmpty())
+                    myEditor.putString(contacts.getKey(),contacts.getValue(String.class));
+                }
+                myEditor.apply();*/
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -126,7 +139,9 @@ public class SosActivity extends AppCompatActivity {
                                 PendingIntent pi=PendingIntent.getActivity(getApplicationContext(), 0, intent,0);
                                 //Get the SmsManager instance and call the sendTextMessage method to send message
                                 SmsManager sms=SmsManager.getDefault();
-
+                                if(emergencyContactNo.isEmpty()){
+                                    emergencyContactNo= sharedpreferences.getString("eContact","9632601656");
+                                }
                                 sms.sendTextMessage(emergencyContactNo, null, "SOS my location is http://maps.google.com/maps?q="+ans, pi,null);
                                 Toast.makeText(getApplicationContext(), "Message Sent successfully!"+emergencyContactNo,
                                         Toast.LENGTH_LONG).show();
