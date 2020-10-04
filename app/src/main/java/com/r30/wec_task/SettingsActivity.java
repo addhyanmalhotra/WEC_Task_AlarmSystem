@@ -1,5 +1,6 @@
 package com.r30.wec_task;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -10,19 +11,33 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SettingsActivity extends AppCompatActivity {
     TextInputLayout tf0,tf1,tf2,tf3,tf4;
     TextInputEditText etf0,etf1,etf2,etf3,etf4;
+    Button button;
+    FirebaseDatabase firebaseDatabase;
+    FirebaseUser firebaseUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(
                 AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_settings);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference userRef = database.getReference("users").child(firebaseUser.getUid());
         tf0=findViewById(R.id.ePhoneTF1);
         tf1=findViewById(R.id.ePhoneTF2);
         tf2=findViewById(R.id.ePhoneTF3);
@@ -34,7 +49,18 @@ public class SettingsActivity extends AppCompatActivity {
         etf2=findViewById(R.id.ePhoneTF3);
         etf3=findViewById(R.id.ePhoneTF4);
         etf4=findViewById(R.id.ePhoneTF5);
+        //Button
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!etf0.getText().toString().isEmpty()){
+                userRef.child("eContact").setValue(etf0.getText().toString());
+                }   else {
+
+                }
+            }
+        });
         tf0.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
