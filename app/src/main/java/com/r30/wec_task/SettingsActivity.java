@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -26,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 public class SettingsActivity extends AppCompatActivity {
     TextInputLayout tf0,tf1,tf2,tf3,tf4;
     TextInputEditText etf0,etf1,etf2,etf3,etf4;
-    Button button;
+    Button button,soBtn,resetBtn;
     FirebaseDatabase firebaseDatabase;
     FirebaseUser firebaseUser;
     @Override
@@ -44,20 +45,38 @@ public class SettingsActivity extends AppCompatActivity {
         tf3=findViewById(R.id.ePhoneTF4);
         tf4=findViewById(R.id.ePhoneTF5);
         //assigning ET's
-        etf0=findViewById(R.id.ePhoneTF1);
-        etf1=findViewById(R.id.ePhoneTF2);
-        etf2=findViewById(R.id.ePhoneTF3);
-        etf3=findViewById(R.id.ePhoneTF4);
-        etf4=findViewById(R.id.ePhoneTF5);
+        etf0=findViewById(R.id.EmergencyphoneNo1);
+        etf1=findViewById(R.id.EmergencyphoneNo2);
+        etf2=findViewById(R.id.EmergencyphoneNo3);
+        etf3=findViewById(R.id.EmergencyphoneNo4);
+        etf4=findViewById(R.id.EmergencyphoneNo5);
         //Button
-
+        button=findViewById(R.id.upDateBtn);
+        soBtn=findViewById(R.id.signOutBtn);
+        resetBtn=findViewById(R.id.resetBtn);
+        soBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent I = new Intent(SettingsActivity.this, MainActivity.class);
+                startActivity(I);
+                finish();
+            }
+        });
+        resetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SettingsActivity.this,"Dude i told you i didn't implement " +
+                        "forgot password, text me on 9632601656 and ill send reset mail",Toast.LENGTH_LONG);
+            }
+        });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!etf0.getText().toString().isEmpty()){
                 userRef.child("eContact").setValue(etf0.getText().toString());
                 }   else {
-
+                tf0.setError("Dude Primary contact is Empty");
                 }
             }
         });

@@ -144,7 +144,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/signUpBtn2"
+                android:id="@+id/upDateBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -156,6 +156,7 @@
     </ScrollView>
 
     <Button
+        android:id="@+id/signOutBtn"
     style="@style/Widget.AppCompat.Button.Borderless"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -166,6 +167,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
     <Button
+        android:id="@+id/resetBtn"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

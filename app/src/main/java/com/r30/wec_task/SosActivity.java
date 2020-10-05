@@ -139,9 +139,9 @@ public class SosActivity extends AppCompatActivity {
                                 PendingIntent pi=PendingIntent.getActivity(getApplicationContext(), 0, intent,0);
                                 //Get the SmsManager instance and call the sendTextMessage method to send message
                                 SmsManager sms=SmsManager.getDefault();
-                                if(emergencyContactNo.isEmpty()){
+                                //if(emergencyContactNo.isEmpty()){
                                     emergencyContactNo= sharedpreferences.getString("eContact","9632601656");
-                                }
+
                                 sms.sendTextMessage(emergencyContactNo, null, "SOS my location is http://maps.google.com/maps?q="+ans, pi,null);
                                 Toast.makeText(getApplicationContext(), "Message Sent successfully!"+emergencyContactNo,
                                         Toast.LENGTH_LONG).show();
