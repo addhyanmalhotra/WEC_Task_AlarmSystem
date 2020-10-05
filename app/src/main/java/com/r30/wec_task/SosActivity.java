@@ -74,8 +74,8 @@ public class SosActivity extends AppCompatActivity {
                /* for(DataSnapshot contacts : snapshot.getChildren()){
                     if(!contacts.getValue(String.class).isEmpty())
                     myEditor.putString(contacts.getKey(),contacts.getValue(String.class));
-                }
-                myEditor.apply();*/
+                }*/
+                myEditor.apply();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
