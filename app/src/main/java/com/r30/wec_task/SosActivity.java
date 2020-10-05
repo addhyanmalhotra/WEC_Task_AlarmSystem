@@ -35,6 +35,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Random;
+
 public class SosActivity extends AppCompatActivity {
     private static final int REQUEST_LOCATION = 1;
     private FusedLocationProviderClient fusedLocationClient;
@@ -60,10 +62,12 @@ public class SosActivity extends AppCompatActivity {
         //Get Emergency Contact from DataBase
         eCTV= findViewById(R.id.emNo);
         fab = findViewById(R.id.settingsfab);
-        userRef.child("eContact").addValueEventListener(new ValueEventListener() {
+        Random random = new Random();
+        userRef.child("refresher").setValue(random.nextInt(256));
+        userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                emergencyContactNo = snapshot.getValue(String.class).toString();
+                emergencyContactNo = snapshot.child("eContact").getValue(String.class).toString();
                 Toast.makeText(SosActivity.this,"Emergency contact is"+emergencyContactNo,Toast.LENGTH_SHORT);
                 myEditor.putString("eContact",emergencyContactNo);
                 eCTV.setText(emergencyContactNo);
