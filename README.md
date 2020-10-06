@@ -12,7 +12,8 @@ of the user upon clicking the sos button
 3. Run app on device
 
 ## Technologies used
-- [x] Backend Auth/Cloud Storage of user data(emergency contact) Firebase Auth and Firebase realtime Database
+- [x] Backend Auth/Cloud Storage of user data(emergency contact) Firebase Auth
+- [x] Firebase realtime Database, for cloud storage of user data
 - [x] SMS , default sms manager api
 - [x] Local persistent storage, Android Shared preferences (SQLlite seemed like over kill for this)
 - [x] Logos/Backgrounds designed in GIMP 2.10
