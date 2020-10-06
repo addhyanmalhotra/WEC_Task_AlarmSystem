@@ -1,6 +1,16 @@
 # READMe
 the Project is an alarm system, that sends an SMS containing a link to the last known location
 of the user upon clicking the sos button
+## Installation
+### Method 1
+1. find apk-debug in
+>\app\build\outputs\apk\debug
+2. Copy to device and install
+### Method 2 (requires USB Debug)
+1. Open project in android studio
+2. Connect device (dont use avd without simcard emulator and gps emulator)
+3. Run app on device
+
 ## Technologies used
 - [x] Backend Auth/Cloud Storage of user data(emergency contact) Firebase Auth and Firebase realtime Database
 - [x] SMS , default sms manager api
